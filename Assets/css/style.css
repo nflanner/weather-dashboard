@@ -4,3 +4,24 @@
     font-size: 3em;
     font-weight: bolder;
 }
+
+.btn {
+    width: 100% !important;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.custom-btn {
+    color: black;
+    background-color: grey;
+    width: 100%;
+    border-radius: 1% 1% 1% 1%;
+}
+
+#city-search {
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+#city-list {
+    width: 100%;
+}
