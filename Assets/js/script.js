@@ -29,11 +29,22 @@ function getWeather(lat, lon) {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            document.querySelector('#temp').textContent = Math.round(((data.current.temp - 273.15) * (9/5) + 32) * 100) / 100; //conversion to F
+            document.querySelector('#temp').textContent = convToF(data.current.temp);
             document.querySelector('#wind').textContent = data.current.wind_speed;
             document.querySelector('#humidity').textContent = data.current.humidity;
             document.querySelector('#uvi').textContent = data.current.uvi;
+
+            for (var i = 0; i < 5; i++) {
+                console.log(document.getElementsByClassName('emoji')[i].textContent = data.daily[i].weather[0].icon);
+                console.log(document.getElementsByClassName('temp')[i].textContent = convToF(data.daily[i].temp.day));
+                console.log(document.getElementsByClassName('wind')[i].textContent = data.daily[i].wind_speed);
+                console.log(document.getElementsByClassName('humidity')[i].textContent = data.daily[i].humidity);
+            }
         })
+}
+
+function convToF(tempK) {
+    return Math.round(((tempK - 273.15) * (9/5) + 32) * 100) / 100;
 }
 
 submitBtnEl.addEventListener("click", handleSubmit);
