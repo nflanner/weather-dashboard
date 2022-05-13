@@ -29,6 +29,10 @@ function getWeather(lat, lon) {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            document.querySelector('#temp').textContent = Math.round(((data.current.temp - 273.15) * (9/5) + 32) * 100) / 100; //conversion to F
+            document.querySelector('#wind').textContent = data.current.wind_speed;
+            document.querySelector('#humidity').textContent = data.current.humidity;
+            document.querySelector('#uvi').textContent = data.current.uvi;
         })
 }
 
