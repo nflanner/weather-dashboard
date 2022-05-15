@@ -10,7 +10,7 @@ function handleSubmit(event) {
     var cityInput = submitCityEl.value;
     // console.log(cityInput);
     // get geo location, then weather
-    // getGeoLocation(cityInput) 
+    getGeoLocation(cityInput) 
     addHistory(cityInput);
 }
 
@@ -19,7 +19,7 @@ function handleHistory(event) {
     var element = event.target;
     if (element.getAttribute('class') == 'btn btn-block bg-secondary') {
         var city = element.textContent;
-        // getGeoLocation(city);
+        getGeoLocation(city);
     }
 }
 
@@ -31,11 +31,11 @@ function getGeoLocation(city) {
             // get weather using geo location
             const lat = data[0].lat;
             const lon = data[0].lon;
-            getWeather(lat, lon);
+            getWeather(lat, lon, city);
         });
 }
 
-function getWeather(lat, lon) {
+function getWeather(lat, lon, city) {
     var weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey;
     fetch(weatherURL)
         .then(response => response.json())
@@ -46,6 +46,14 @@ function getWeather(lat, lon) {
             document.querySelector('#wind').textContent = data.current.wind_speed;
             document.querySelector('#humidity').textContent = data.current.humidity;
             document.querySelector('#uvi').textContent = data.current.uvi;
+
+            if (data.current.uvi > 10) {
+                $('#uvi').addClass('bg-danger text-light');
+            } else if (data.current.uvi > 5) {
+                $('#uvi').addClass('bg-warning text-light');
+            } else {
+                $('#uvi').addClass('bg-success text-light');
+            }
 
             for (var i = 0; i < 5; i++) {
                 document.getElementsByTagName('h5')[i].textContent = '(date)';
