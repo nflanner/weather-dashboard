@@ -1,10 +1,16 @@
 # 06 Server-Side APIs: Weather Dashboard
 
-## Project Descriptiom
+## Project Description
 
 Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. This project is a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
 
 Using the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api), the application retrieves weather data for cities. The application also utilizes `localStorage` to store any persistent data. Documentation for the OpenWeather API can be found here: [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+
+To use this application:
+* Enter a citty name in the search bar
+* Select 'Submit'
+
+The current-day results will be featured in the main division and the five day forecast below. Recent searches will be saved and be accessible via a button clicked labeled with the city name. Note that recent searches refresh much faster due to `localStorage`. Refreshing the page will clear all recent city searches.
 
 ## Deployed Application
 
