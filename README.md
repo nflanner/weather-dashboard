@@ -1,10 +1,20 @@
 # 06 Server-Side APIs: Weather Dashboard
 
-## Your Task
+## Project Descriptiom
 
-Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
+Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. This project is a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
 
-Use the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) to retrieve weather data for cities. Read through the documentation for setup and usage instructions. You will use `localStorage` to store any persistent data. For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+Using the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api), the application retrieves weather data for cities. The application also utilizes `localStorage` to store any persistent data. Documentation for the OpenWeather API can be found here: [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+
+## Deployed Application
+
+To see the deployed application, click [here](https://nflanner.github.io/weather-dashboard/).
+
+## Mock-Up
+
+The following image shows the web application's appearance and functionality:
+
+![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/Images/06-server-side-apis-homework-demo.png)
 
 ## User Story
 
@@ -29,12 +39,6 @@ THEN I am presented with a 5-day forecast that displays the date, an icon repres
 WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 ```
-
-## Mock-Up
-
-The following image shows the web application's appearance and functionality:
-
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/Images/06-server-side-apis-homework-demo.png)
 
 ## Grading Requirements
 
