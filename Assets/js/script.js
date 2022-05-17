@@ -10,7 +10,6 @@ var cityHistoryDataList = [];
 function handleSubmit(event) {
     event.preventDefault();
     var cityInput = submitCityEl.value;
-    // console.log(cityInput);
     // get geo location, then weather
     getGeoLocation(cityInput);
 }
@@ -36,8 +35,6 @@ function getGeoLocation(city) {
                 const lon = data[0].lon;
                 getWeather(lat, lon, city);
             } else {
-                console.log(JSON.parse(localStorage.getItem("cityHistory")));
-                console.log(JSON.parse(localStorage.getItem("cityHistory"))[city.toLowerCase()]);
                 setHeader(JSON.parse(localStorage.getItem("cityHistory"))[city.toLowerCase()]);
                 for (var i = 0; i < 5; i++) {
                     setBody(JSON.parse(localStorage.getItem("cityHistory"))[city.toLowerCase()], i);
@@ -51,12 +48,9 @@ function getWeather(lat, lon, city) {
     fetch(weatherURL)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             cityHistory[city.toLowerCase()] = data;
-            console.log(cityHistory);
             saveToStorage();
-            document.getElementsByTagName('h1')[0].textContent = city + '(date) ' + getEmoji();
-            setHeader(data);
+            setHeader(data, city);
 
             if (data.current.uvi > 10) {
                 $('#uvi').addClass('bg-danger text-light');
@@ -85,13 +79,9 @@ function addHistory(city) {
     historyDivElement.appendChild(historyButton);
 }
 
-function setHeader(data) {
-    console.log('---');
-    console.log(data.current.weather[0].icon);
-    // document.querySelector('#emoji').setAttribute('src', getEmoji(data.current.weather[0].icon));
-    var iconURL = 'http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png';
-    console.log('<img src=http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png>');
-    console.log('<img src=\'http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png\'>');
+function setHeader(data, city) {
+    document.getElementById('city-header').textContent = city;
+    document.getElementById('date-header').textContent = '(' + getDate(0) + ')';
     document.getElementsByClassName('emoji')[0].setAttribute('src', getEmoji(data.current.weather[0].icon));
     document.querySelector('#temp').textContent = convToF(data.current.temp);
     document.querySelector('#wind').textContent = data.current.wind_speed;
@@ -100,10 +90,11 @@ function setHeader(data) {
 }
 
 function setBody(data, i) {
+    document.getElementsByClassName('date')[i].textContent = getDate(i);
     document.getElementsByClassName('emoji')[i+1].setAttribute('src', getEmoji(data.daily[i].weather[0].icon));
-    document.getElementsByClassName('temp')[i+1].textContent = convToF(data.daily[i].temp.day);
-    document.getElementsByClassName('wind')[i+1].textContent = data.daily[i].wind_speed;
-    document.getElementsByClassName('humidity')[i+1].textContent = data.daily[i].humidity;
+    document.getElementsByClassName('temp')[i].textContent = convToF(data.daily[i].temp.day);
+    document.getElementsByClassName('wind')[i].textContent = data.daily[i].wind_speed;
+    document.getElementsByClassName('humidity')[i].textContent = data.daily[i].humidity;
 }
 
 function saveToStorage(city) {
@@ -111,9 +102,12 @@ function saveToStorage(city) {
 }
 function getEmoji(iconText) {
     var emojiString = 'http://openweathermap.org/img/wn/' + iconText + '@2x.png';
-    var iconImg = document.createElement('img');
-    iconImg.setAttribute('src', emojiString);
     return emojiString;
+}
+
+function getDate(offset) {
+    var date = moment().add(offset, 'd').format('MM/DD/YYYY');
+    return date;
 }
 
 submitBtnEl.addEventListener("click", handleSubmit);
