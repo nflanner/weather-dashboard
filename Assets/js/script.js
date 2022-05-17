@@ -35,10 +35,11 @@ function getGeoLocation(city) {
                 const lon = data[0].lon;
                 getWeather(lat, lon, city);
             } else {
-                setHeader(JSON.parse(localStorage.getItem("cityHistory"))[city.toLowerCase()]);
+                setHeader(JSON.parse(localStorage.getItem("cityHistory"))[city.toLowerCase()], city);
                 for (var i = 0; i < 5; i++) {
                     setBody(JSON.parse(localStorage.getItem("cityHistory"))[city.toLowerCase()], i);
                 }
+                setUVColor(JSON.parse(localStorage.getItem("cityHistory"))[city.toLowerCase()].current.uvi);
             }
         });
 }
@@ -51,20 +52,22 @@ function getWeather(lat, lon, city) {
             cityHistory[city.toLowerCase()] = data;
             saveToStorage();
             setHeader(data, city);
-
-            if (data.current.uvi > 10) {
-                $('#uvi').addClass('bg-danger text-light');
-            } else if (data.current.uvi > 5) {
-                $('#uvi').addClass('bg-warning text-light');
-            } else {
-                $('#uvi').addClass('bg-success text-light');
-            }
-
+            setUVColor(data.current.uvi);
             for (var i = 0; i < 5; i++) {
                 document.getElementsByTagName('h5')[i].textContent = '(date)';
                 setBody(data, i);
             }
         })
+}
+
+function setUVColor(UVI) {
+    if (UVI > 10) {
+        $('#uvi').removeClass().addClass('rounded px-2 bg-danger text-light');
+    } else if (UVI > 5) {
+        $('#uvi').removeClass().addClass('rounded px-2 bg-warning text-light');
+    } else {
+        $('#uvi').removeClass().addClass('rounded px-2 bg-success text-light');
+    }
 }
 
 function convToF(tempK) {
